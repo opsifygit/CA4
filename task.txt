@@ -1,3 +1,3 @@
 Adeel: MongoDB setup docker file and documentation
 Faziha: Web application using node.js Express
-Maryam:
+Maryam: Docker Compose file (Member 1 task)
