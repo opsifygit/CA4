@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 5000;
 
-mongoose.connect('mongodb://localhost/myapp', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/', { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
 // Create a User model
