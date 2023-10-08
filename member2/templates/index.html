@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CRUD App</title>
+</head>
+<body>
+    <h1>CRUD App</h1>
+    <h2>Create Record</h2>
+    <form id="create-form">
+        <input type="text" id="name" placeholder="Name">
+        <input type="number" id="age" placeholder="Age">
+        <button type="button" onclick="createRecord()">Create</button>
+    </form>
+    <h2>Records</h2>
+    <ul id="records"></ul>
+    <script>
+        function createRecord() {
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+
+            fetch('/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, age }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                document.getElementById('name').value = '';
+                document.getElementById('age').value = '';
+                loadRecords();
+            });
+        }
+
+        function loadRecords() {
+            fetch('/read')
+            .then(response => response.json())
+            .then(data => {
+                const recordsList = document.getElementById('records');
+                recordsList.innerHTML = '';
+                for (const id in data) {
+                    const record = data[id];
+                    const li = document.createElement('li');
+                    li.textContent = `ID: ${id}, Name: ${record.name}, Age: ${record.age}`;
+                    recordsList.appendChild(li);
+                }
+            });
+        }
+
+        loadRecords();
+    </script>
+</body>
+</html>
